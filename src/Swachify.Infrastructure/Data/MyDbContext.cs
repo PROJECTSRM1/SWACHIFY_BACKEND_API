@@ -264,6 +264,10 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.is_active).HasDefaultValue(true);
             entity.Property(e => e.modified_date).HasColumnType("timestamp without time zone");
 
+            entity.HasOne(d => d.booking).WithMany(p => p.otp_histories)
+                .HasForeignKey(d => d.booking_id)
+                .HasConstraintName("fk_otp_history_booking_id");
+
             entity.HasOne(d => d.created_byNavigation).WithMany(p => p.otp_historycreated_byNavigations)
                 .HasForeignKey(d => d.created_by)
                 .HasConstraintName("fk_otp_history_created_by");
@@ -472,6 +476,8 @@ public partial class MyDbContext : DbContext
             entity.HasIndex(e => e.service_id, "idx_user_registration_service_id");
 
             entity.HasIndex(e => e.email, "uk_user_registration_email").IsUnique();
+
+            entity.HasIndex(e => e.mobile, "uk_user_registration_mobile").IsUnique();
 
             entity.Property(e => e.created_date)
                 .HasDefaultValueSql("now()")

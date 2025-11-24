@@ -21,6 +21,10 @@ public partial class otp_history
 
     public bool? is_active { get; set; }
 
+    public long? booking_id { get; set; }
+
+    public virtual service_booking? booking { get; set; }
+
     public virtual user_registration? created_byNavigation { get; set; }
 
     public virtual user_registration? modified_byNavigation { get; set; }

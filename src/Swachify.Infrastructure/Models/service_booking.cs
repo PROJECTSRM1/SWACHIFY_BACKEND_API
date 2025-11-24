@@ -59,6 +59,8 @@ public partial class service_booking
 
     public virtual user_registration? modified_byNavigation { get; set; }
 
+    public virtual ICollection<otp_history> otp_histories { get; set; } = new List<otp_history>();
+
     public virtual ICollection<service_tracking> service_trackings { get; set; } = new List<service_tracking>();
 
     public virtual master_service_type? service_type { get; set; }

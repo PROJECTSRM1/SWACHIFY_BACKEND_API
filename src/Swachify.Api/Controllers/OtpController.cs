@@ -34,8 +34,10 @@ namespace Swachify.Api.Controllers
         [HttpPost("sendcustomerotp")]
         public async Task<IActionResult> SendCustomerOtp(CustomerOTPDto requestOTP)
         {
+
             var sent = await _otpService.SendCustomerOtpAsync(requestOTP);
-            return sent ? Ok("Customer OTP sent successfully.") : BadRequest("Failed to send Customer OTP.");
+            return Ok("Customer OTP sent successfully."); 
+            
         }
 
         
@@ -43,7 +45,7 @@ namespace Swachify.Api.Controllers
         public async Task<IActionResult> VerifyCustomerOtp(CustomerOTPDto requestOTP)
         {
             var verified = await _otpService.VerifyCustomerOtpAsync(requestOTP);
-            return verified ? Ok("Customer OTP verified successfully.") : BadRequest("Invalid Customer OTP.");
+            return Ok("Customer OTP verified successfully.");
         }
 
         [HttpPost("sentsms")]

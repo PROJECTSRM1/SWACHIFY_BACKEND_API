@@ -14,8 +14,8 @@ public class SMSService(IConfiguration configuration) : ISMSService
 {
     public async Task<string> SendSMSAsync(SMSRequestDto request)
     {
-        if(string.IsNullOrEmpty(request?.To))
-        return "Please provide phone number";
+        if (string.IsNullOrEmpty(request?.To))
+            return "Please provide phone number";
         var smsSection = configuration.GetSection("SMSSettings");
         var baseUrl = smsSection["BaseUrl"];
         var clientid = smsSection["ClientID"];
@@ -39,7 +39,7 @@ public class SMSService(IConfiguration configuration) : ISMSService
                     {
                         udh = "0",
                         coding = 1,
-                        text = "Welcome to RM1codershub, you are registered succesfully Thanks, Rm1CodersHub.",
+                        text = request.message,
                         property = 0,
                         id = "1",
                         addresses = new[]
@@ -61,9 +61,15 @@ public class SMSService(IConfiguration configuration) : ISMSService
         if (result.statuscode == 200)
         {
             var errortext = result?.messageack?.guids?
-    .SelectMany(g => g.errors)
-    .FirstOrDefault(e => e.errorcode > 0)?.errortext;
+                            .Where(g => g?.errors != null)                // ensure errors is not null
+                            .SelectMany(g => g.errors)
+                            .FirstOrDefault(e => e?.errorcode > 0)
+                            ?.errortext;
             return errortext;
+        }
+        else if (result?.status.ToLower() == "error")
+        {
+            return result.statustext.ToString();
         }
 
         return "SMS sent Successfully";
