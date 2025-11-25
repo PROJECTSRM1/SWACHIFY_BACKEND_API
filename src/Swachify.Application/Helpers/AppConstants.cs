@@ -15,3 +15,4 @@ public static class AppConstants
     public const string OtpMessage = "Dear {#var#}, your Swachify cleaning agent has arrived at your location. 🧑‍🔧 Agent Name:  {#var#}. OTP for verification: {#var#}. Please provide this OTP to the agent to begin the service. Regards, RM1 codershub";
 
     public const string otpsms = "Dear {CustomerName},OTP for RM1 coders login : {otp} Regard,RM1 codershub";
+}

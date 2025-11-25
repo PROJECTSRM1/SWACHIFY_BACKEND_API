@@ -86,12 +86,12 @@ public class OtpService : IOtpService
         if (!string.IsNullOrEmpty(request?.phoneNumber))
         {
 
-            var requestcmd = new SMSRequestDto(request?.phoneNumber, message);
+            var requestcmd = new SMSRequestDto(request?.phoneNumber, msg);
             await _smsService.SendSMSAsync(requestcmd);
         }
         if (!string.IsNullOrEmpty(request?.email))
         {
-            await _emailService.SendEmailAsync(request?.email, "Your Swachify Service OTP", message);
+            await _emailService.SendEmailAsync(request?.email, "Your Swachify Service OTP", msg);
         }
         return "OTP sent successfully";
     }
