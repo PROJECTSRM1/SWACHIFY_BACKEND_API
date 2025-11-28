@@ -116,7 +116,8 @@ namespace Swachify.Application.Services
       {
         email = booking.email,
         first_name = booking.full_name,
-        mobile = booking.phone,
+        last_name = "",
+          mobile = booking.phone,
         role_id = 4,
       };
       _db.user_registrations.AddRange(user);
